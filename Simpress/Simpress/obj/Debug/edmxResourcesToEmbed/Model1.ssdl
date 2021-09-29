@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PRODUTOSTOREModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblCategoriaProduto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="250" />
+    <Property Name="Descricao" Type="varchar" MaxLength="250" />
+    <Property Name="Ativo" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblProduto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="250" />
+    <Property Name="Descricao" Type="varchar" MaxLength="250" />
+    <Property Name="Ativo" Type="bit" />
+    <Property Name="Perecivel" Type="bit" />
+    <Property Name="CategoriaID" Type="int" />
+  </EntityType>
+  <Association Name="FK_Produto_Categoria">
+    <End Role="tblCategoriaProduto" Type="Self.tblCategoriaProduto" Multiplicity="1" />
+    <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblCategoriaProduto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblProduto">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PRODUTOSTOREModelStoreContainer">
+    <EntitySet Name="tblCategoriaProduto" EntityType="Self.tblCategoriaProduto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblProduto" EntityType="Self.tblProduto" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Produto_Categoria" Association="Self.FK_Produto_Categoria">
+      <End Role="tblCategoriaProduto" EntitySet="tblCategoriaProduto" />
+      <End Role="tblProduto" EntitySet="tblProduto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
